@@ -1,0 +1,66 @@
+stages:
+  - test
+  - build
+  - deploy
+
+# [Tahap 1] Unit Test & Functional Testing (Opsional, tergantung spesifikasi runner)
+selenium_test:
+  stage: test
+  image: python:3.10
+  script:
+    - echo "Pastikan service frontend dan backend berjalan di runner untuk menguji script selenium_test.py."
+    - echo "Pipeline testing Selenium dapat dihidupkan dengan perintah:"
+    - echo "pip install -r backend/requirements.txt && pip install selenium webdriver-manager"
+    - echo "python selenium_test.py"
+  allow_failure: true
+
+# [Tahap 2] Membangun Frontend Container
+build_frontend:
+  stage: build
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  script:
+    - echo "Build Docker image untuk Frontend..."
+    - docker build -t $CI_REGISTRY_IMAGE/frontend:latest ./frontend
+    - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+    - docker push $CI_REGISTRY_IMAGE/frontend:latest
+  rules:
+    - changes:
+      - frontend/**/*
+
+# [Tahap 2] Membangun Backend Container
+build_backend:
+  stage: build
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  script:
+    - echo "Build Docker image untuk Backend..."
+    - docker build -t $CI_REGISTRY_IMAGE/backend:latest ./backend
+    - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+    - docker push $CI_REGISTRY_IMAGE/backend:latest
+  rules:
+    - changes:
+      - backend/**/*
+
+# [Tahap 3] Deploy ke Server VPS (Ter-Trigger secara manual atau ketika di-push ke main)
+deploy_to_vps:
+  stage: deploy
+  image: alpine:latest
+  before_script:
+    - apk add --no-cache openssh-client
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan $VPS_IP >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    # Perintah eksekusi deploy ke VPS
+    - ssh $VPS_USER@$VPS_IP "cd /home/$VPS_USER/Dashboard-Agentic-AI && git pull origin main && docker-compose up -d --build"
+  only:
+    - main
+  # environment:
+  #   name: production
+  #   url: https://your-dashboard-domain.com

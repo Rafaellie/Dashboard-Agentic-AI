@@ -1,0 +1,37 @@
+# frontend envs & builds
+node_modules/
+.next/
+out/
+build/
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+npm-debug.log*
+
+# backend envs & cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.env
+venv/
+env/
+.venv/
+*.db
+.pytest_cache/
+
+# system
+.DS_Store
+.vscode/
+.idea/
+
+# static files
+data/*.csv
+data/*.xlsx
+data/*.pdf
+data/*.json
+!data/README.md
+backend/data/*.csv
+backend/data/*.xlsx
+backend/data/*.pdf

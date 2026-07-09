@@ -1,0 +1,32 @@
+# Web Framework
+fastapi
+uvicorn
+python-dotenv
+pydantic
+
+# AI Agentic Engine
+langgraph
+langchain
+langchain-groq
+langchain-community
+langchain-tavily
+
+# Database & State
+supabase
+sqlalchemy
+psycopg2-binary
+psycopg[binary]
+langgraph-checkpoint-postgres
+
+# Data Processing
+pandas
+numpy
+
+# External Tools & Notifications
+tavily-python
+resend
+twilio
+PyPDF2
+python-multipart
+email-validator
+

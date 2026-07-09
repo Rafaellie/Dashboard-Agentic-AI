@@ -1,0 +1,33 @@
+{
+  "company_name": "D'BESTO",
+  "industry": "Fried Chicken Franchise / Quick Service Restaurant (QSR)",
+  "country": "Indonesia",
+  "language": "Indonesian",
+  "swot": {
+    "strengths": [
+      "Founders have veterinary medicine background (ensures high hygiene standards)",
+      "Affordable pricing (Value for Money)",
+      "Large network of 200+ outlets"
+    ],
+    "weaknesses": [
+      "Kiosk/mini-resto model limits upselling opportunities (drinks/desserts) compared to KFC",
+      "Limited physical space for dining"
+    ],
+    "opportunities": [
+      "Expansion to islands outside Java",
+      "Integration with cloud kitchen models",
+      "Digitization of supply chain to defend margins"
+    ],
+    "threats": [
+      "Fluctuation in raw chicken prices (commodity pressure)",
+      "High competition from global giants and aggressive local franchises"
+    ]
+  },
+  "porters_five_forces": {
+    "competition": "High (Saturated market with global players and local franchises)",
+    "supplier_power": "Medium (Scale of 200+ outlets gives bargaining power for feed and chicken costs)",
+    "buyer_power": "High (Low switching costs for consumers)",
+    "threat_of_substitutes": "High (Many alternative street food options)",
+    "threat_of_new_entrants": "Medium (Low barrier to entry, but hard to scale to 200+ outlets)"
+  }
+}
